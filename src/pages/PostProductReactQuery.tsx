@@ -9,7 +9,7 @@ interface FormData {
 
 /* GET */
 async function fetchProducts(): Promise<ProductData[]> {
-  return (await axios.get("https://dummyjson.com/products?limit=20")).data
+  return (await axios.get("https://dummyjson.com/products?limit=10")).data
     .products;
 }
 
