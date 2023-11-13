@@ -50,10 +50,9 @@ const PostProductReactQuery = () => {
 
     mutation.mutate(fields);
 
-    console.log({ status: mutation.isSuccess });
-
-    // console.log("Loading ...", mutation.isLoading);
-    // console.log("Error => ", mutation.isError);
+    console.log({ success: mutation.isSuccess });
+    console.log({ loading: mutation.isLoading });
+    console.log({ error: mutation.isError });
 
     event.currentTarget.reset();
   };
