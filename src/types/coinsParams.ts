@@ -1,16 +1,56 @@
-interface CryptoCurrency {
+export type CryptoCurrency = {
+  ath: number;
+  ath_change_percentage: number;
+  ath_date: string;
+  atl: number;
+  atl_change_percentage: number;
+  atl_date: string;
+  circulating_supply: number;
+  current_price: number;
+  fully_diluted_valuation: number;
+  high_24h: number;
   id: string;
-  rank: string;
-  symbol: string;
+  image: string;
+  last_updated: string;
+  low_24h: number;
+  market_cap: number;
+  market_cap_change_24h: number;
+  market_cap_change_percentage_24h: number;
+  market_cap_rank: number;
+  max_supply: number;
   name: string;
-  supply: string;
-  maxSupply: string;
-  marketCapUsd: string;
-  volumeUsd24Hr: string;
-  priceUsd: string;
-  changePercent24Hr: string;
-  vwap24Hr: string;
-  explorer: string;
-}
+  price_change_24h: number;
+  price_change_percentage_24h: number;
+  roi: null; // Assuming roi is nullable, update if it has a specific type
+  symbol: string;
+  total_supply: number;
+  total_volume: number;
+};
 
-export default CryptoCurrency;
+export type CoinData = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+};
+
+export type ProductData = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+};
