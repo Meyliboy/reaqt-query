@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 import { ProductData } from "../types/coinsParams";
+import LoadingComponent from "../utils/LoadingComponent";
+import { toast } from "react-toastify";
 
 interface FormData {
   title: string;
@@ -22,7 +24,10 @@ async function createProduct(data: FormData) {
 }
 
 const PostProductReactQuery = () => {
-  const { data, isLoading } = useQuery("products", fetchProducts); /* for GET */
+  const { data, isLoading, isError } = useQuery(
+    "products",
+    fetchProducts
+  ); /* for GET */
 
   /* for POST */
   const mutation = useMutation((newProduct: FormData) =>
@@ -49,47 +54,91 @@ const PostProductReactQuery = () => {
     };
 
     mutation.mutate(fields);
-
-    console.log({ success: mutation.isSuccess });
-    console.log({ loading: mutation.isLoading });
-    console.log({ error: mutation.isError });
-
     event.currentTarget.reset();
+
+    if (mutation.data?.status === 200) {
+      toast.success("Successfully !!!");
+    }
+
+    if (mutation.isError) {
+      toast.error("Connected error.");
+    }
   };
 
   return (
-    <div className="w-full justify-center items-center flex flex-col gap-6">
-      <div className="w-full flex justify-center">
-        <table>
-          <thead>
-            <tr className="border">
-              <th className="border">№</th>
-              <th className="border">Brand</th>
-              <th className="border">Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.map((product) => (
-              <tr key={product.id} className="border">
-                <td className="border">{product.id}</td>
-                <td className="border">{product.brand}</td>
-                <td className="border">{product.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="w-full h-screen bgColor flex justify-center items-center flex-col">
+      <div>
+        {isLoading && (
+          <h2>
+            <LoadingComponent />
+          </h2>
+        )}
+        {isError && <h2>Error fetching data.</h2>}
+        {!isLoading && !isError && data?.length === 0 && (
+          <h2>No data available.</h2>
+        )}
+        {data?.length ? (
+          <div>
+            <div className=" w-full flex justify-between">
+              <h1 className="text-center">React Query POST</h1>
+            </div>
+            <table className="w-[300px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th className="px-6 py-2 w-[6%]">№</th>
+                  <th
+                    scope="col"
+                    className="px-6 py-2 w-[150px] overflow-hidden"
+                  >
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-2">
+                    Raiting
+                  </th>
+                  <th scope="col" className="px-6 py-2">
+                    Stock
+                  </th>
+                  <th scope="col" className="px-6 py-2">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.map((coin) => (
+                  <tr
+                    key={coin.id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-500 transition-all duration-500"
+                  >
+                    <td className="px-6 py-2 w-[6%]">{coin.id}</td>
+                    <td
+                      scope="row"
+                      className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-[150px] overflow-hidden"
+                    >
+                      {coin.title}
+                    </td>
+                    <td className="px-6 py-2">{coin.rating}</td>
+                    <td className="px-6 py-2">{coin.stock}</td>
+                    <td className="px-6 py-2">${coin.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="mt-4">
         <input
           type="text"
           placeholder="title"
           name="title"
           required
-          className="pl-2 py-2 rounded-md border border-black w-[510px]"
+          className="pl-2 py-2 rounded-md w-[510px] text-sideText"
         />
         <button
           type="submit"
-          className="block my-2 bg-sky-600 text-white py-1 px-5 rounded-md"
+          className="block my-2 bg-sky-600 focus:bg-green-600 py-2 px-5 rounded-md"
         >
           Submit
         </button>

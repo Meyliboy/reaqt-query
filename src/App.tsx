@@ -11,7 +11,7 @@ function App() {
       <NavigationBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Produscts />} />
+        <Route path="/products" element={<Produscts />} />
         <Route path="/get-products" element={<GetProductWithReactQuery />} />
         <Route path="/post-products" element={<PostProductReactQuery />} />
       </Routes>

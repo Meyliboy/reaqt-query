@@ -2,19 +2,12 @@ import axios from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 import { CoinData } from "../types/coinsParams";
 import { useState } from "react";
+import LoadingComponent from "../utils/LoadingComponent";
 
-// Define the type for the error returned by fetchCoins
 interface FetchCoinsError {
   message: string;
 }
 
-// Define the type for the loading state
-// type LoadingState = boolean;
-
-// Define the type for the error state
-// type ErrorState = FetchCoinsError | null;
-
-// Define the type for the useQuery hook result
 type UseQueryResultWithTypes = UseQueryResult<
   CoinData[],
   FetchCoinsError | null
@@ -36,51 +29,92 @@ const GetProductWithReactQuery = () => {
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
-    } /* ma'lumot galincha aldingisi yo'qolmidi */
+    } /* ma'lumot galincha aldingisi yo'qolmidi ( animation )*/
   );
 
   return (
-    <div>
-      <div className="w-full flex justify-center items-center">
-        <table className="border p-3 w-[800px]">
-          <thead className="w-full">
-            <tr className="p-2 w-full">
-              <th className="p-2">№</th>
-              <th className="p-2 border">symbol</th>
-              <th className="p-2 border">name</th>
-              <th className="p-2 border">price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && <p>Loading ...</p>}
-            {isError && <p>Error pri polucheniya dannix</p>}
-            {!data && <p>Empty dataBase</p>}
-            {data?.map((coin) => (
-              <tr key={coin.id} className="border">
-                <td className="p-3">{coin.id}</td>
-                <td className="border p-2">{coin.brand}</td>
-                <td className="border p-2">{coin.title}</td>
-                <td className="border p-2">${coin.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="w-full h-screen bgColor flex justify-center items-center flex-col">
+      <div>
+        {isLoading && (
+          <h2>
+            <LoadingComponent />
+          </h2>
+        )}
+        {isError && <h2>Error fetching data.</h2>}
+        {!isLoading && !isError && data?.length === 0 && (
+          <h2>No data available.</h2>
+        )}
+        {data?.length ? (
+          <div>
+            <div className=" w-full flex justify-between">
+              <h1 className="text-center">React Query GET</h1>
+              <span>Total items: 100</span>
+              <span>Skip: {page}</span>
+            </div>
+            <table className="w-[300px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th className="px-6 py-3 w-[6%]">№</th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 w-[150px] overflow-hidden"
+                  >
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Raiting
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Stock
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.map((coin) => (
+                  <tr
+                    key={coin.id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-500 transition-all duration-500"
+                  >
+                    <td className="px-6 py-4 w-[6%]">{coin.id}</td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-[150px] overflow-hidden"
+                    >
+                      {coin.title}
+                    </td>
+                    <td className="px-6 py-4">{coin.rating}</td>
+                    <td className="px-6 py-4">{coin.stock}</td>
+                    <td className="px-6 py-4">${coin.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-      <div className="w-full flex justify-evenly mt-2">
-        <button
-          className="px-5 py-1 rounded-md bg-red-300 active:bg-red-500 focus:bg-red-500"
-          onClick={() => setPage((p) => p - 10)}
-          disabled={!page}
-        >
-          ← ortga
-        </button>
-        <button
-          className="px-5 py-1 rounded-md bg-sky-300 active:bg-sky-500 focus:bg-sky-500"
-          onClick={() => setPage((p) => p + 10)}
-        >
-          keyingi →
-        </button>
-      </div>
+      {data?.length && (
+        <div className="inline-flex mt-4">
+          <button
+            className="bg-gray-300 hover:bg-sideText text-gray-800 hover:text-white focus:bg-sideText focus:text-white font-bold py-2 px-4 rounded-l"
+            onClick={() => setPage((p) => p - 10)}
+            disabled={!page}
+          >
+            ← Prev
+          </button>
+          <button
+            disabled={page === 90}
+            className="bg-gray-300 hover:bg-sideText hover:text-white text-gray-800 focus:bg-sideText focus:text-white font-bold py-2 px-4 rounded-r"
+            onClick={() => setPage((p) => p + 10)}
+          >
+            Next →
+          </button>
+        </div>
+      )}
     </div>
   );
 };
