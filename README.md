@@ -1,4 +1,4 @@
-![src/ssets/logo.svg](src/ssets/logo.svg)
+![src/assets/logo.svg](src/assets/logo.svg)
 
 # React + TypeScript + Vite
 
