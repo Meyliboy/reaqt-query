@@ -5,7 +5,7 @@ const NavigationBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       {/* <div className="w-full bg-sky-500 flex justify-center gap-4 py-2 mb-4 text-white font-semibold">
         <NavLink
           to={"/home"}
