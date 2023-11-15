@@ -66,7 +66,7 @@ const PostProductReactQuery = () => {
   };
 
   return (
-    <div className="w-full h-screen bgColor flex justify-center items-center flex-col">
+    <div className="w-full h-screen bgColor flex justify-center items-center flex-col mt-10">
       <div>
         {isLoading && (
           <h2>

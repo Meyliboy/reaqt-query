@@ -54,20 +54,20 @@ const GetProductWithReactQuery = () => {
             <table className="w-[300px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th className="px-6 py-3 w-[6%]">№</th>
+                  <th className="px-6 py-2 w-[6%]">№</th>
                   <th
                     scope="col"
-                    className="px-6 py-3 w-[150px] overflow-hidden"
+                    className="px-6 py-2 w-[150px] overflow-hidden"
                   >
                     Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Raiting
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Stock
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Price
                   </th>
                 </tr>
@@ -78,16 +78,16 @@ const GetProductWithReactQuery = () => {
                     key={coin.id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-500 transition-all duration-500"
                   >
-                    <td className="px-6 py-4 w-[6%]">{coin.id}</td>
+                    <td className="px-6 py-2 w-[6%]">{coin.id}</td>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white w-[150px] overflow-hidden"
+                      className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white w-[150px] overflow-hidden"
                     >
                       {coin.title}
                     </td>
-                    <td className="px-6 py-4">{coin.rating}</td>
-                    <td className="px-6 py-4">{coin.stock}</td>
-                    <td className="px-6 py-4">${coin.price}</td>
+                    <td className="px-6 py-2">{coin.rating}</td>
+                    <td className="px-6 py-2">{coin.stock}</td>
+                    <td className="px-6 py-2">${coin.price}</td>
                   </tr>
                 ))}
               </tbody>

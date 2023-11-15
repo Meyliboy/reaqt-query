@@ -43,16 +43,16 @@ const Produscts = () => {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Raiting
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Stock
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-2">
                     Price
                   </th>
                 </tr>
@@ -65,13 +65,13 @@ const Produscts = () => {
                   >
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
                       {coin.title}
                     </td>
-                    <td className="px-6 py-4">{coin.rating}</td>
-                    <td className="px-6 py-4">{coin.stock}</td>
-                    <td className="px-6 py-4">${coin.price}</td>
+                    <td className="px-6 py-2">{coin.rating}</td>
+                    <td className="px-6 py-2">{coin.stock}</td>
+                    <td className="px-6 py-2">${coin.price}</td>
                   </tr>
                 ))}
               </tbody>
